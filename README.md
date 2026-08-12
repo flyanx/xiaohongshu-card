@@ -6,6 +6,8 @@ Xiaohongshu (RED) card generator as an AI Agent Skill — turn WeChat Official A
 
 > 本仓库是一个 **AI Agent Skill**（技能包），供 WorkBuddy / Claude Code 等支持 skills 的 agent 加载使用。
 
+> ✨ 已整合：本仓库能力已并入 [**studiohub**](https://github.com/flyanx/studiohub) —— 自媒体内容生产统一入口，单一工作流中即可调用（工作流 A·小红书卡片组）。
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-ready-4B32C3.svg)](SKILL.md)
 [![Playwright](https://img.shields.io/badge/Playwright-verified-2EAD33.svg)](scripts/verify.js)
