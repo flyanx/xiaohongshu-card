@@ -1,0 +1,19 @@
+{
+  "brand": "艾基生物 IGE",
+  "logo": "assets/logo-ige.png",
+  "styles": ["pentagram", "build", "takram"],
+  "defaultStyle": "pentagram",
+  "cardSize": "1080x1440",
+  "cover": {
+    "tag": "技术 · 干货",
+    "tags": ["质粒构建", "无缝克隆", "实验干货"]
+  },
+  "endCard": {
+    "tagline": "FIN · 5 步完结",
+    "line1": "感谢阅读",
+    "line2": "感谢关注",
+    "cta": "＋ 关注",
+    "footer": "艾基生物 · 更多干货在路上"
+  },
+  "notes": "复制本文件为 brand-config.json 后修改。line1 黑色、line2 红色强调；LOGO 建议 230px 居中置于关注按钮上方。"
+}
