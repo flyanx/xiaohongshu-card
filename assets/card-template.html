@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>质粒构建·同源重组 小红书卡片组 · 理性实验手册</title>
+<title>小红书卡片模板 · 10 风格</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { background: #e6e6e6; font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif; }
@@ -11,87 +11,170 @@
   .group-title { text-align: center; font-size: 20px; color: #444; letter-spacing: .2em; margin-bottom: 28px; }
   .card-row { display: flex; flex-wrap: wrap; gap: 36px; justify-content: center; }
   .card { width: 1080px; height: 1440px; overflow: hidden; position: relative; box-shadow: 0 12px 40px rgba(0,0,0,.16); }
-  .card .card-index { position: absolute; right: 26px; bottom: 22px; font-size: 16px; letter-spacing: .1em; opacity: .5; z-index: 5; }
+  .card .card-index { position: absolute; right: 26px; bottom: 22px; font-size: 16px; letter-spacing: .1em; opacity: .45; z-index: 5; }
 
-  /* ============ 理性实验手册 · 瑞士网格 · 信息建筑 ============ */
-  .P { background: #fff; color: #1a1a1a; padding: 54px 56px 46px; display: flex; flex-direction: column; }
-  .P .c-label { font-size: 20px; font-weight: 600; letter-spacing: .14em; }
-  .P .c-label::before { content: "#"; color: #E63946; }
-  .P .c-tags { display: flex; gap: 10px; flex-wrap: wrap; }
-  .P .c-tag { font-size: 21px; padding: 9px 20px; border: 2px solid #1a1a1a; font-weight: 600; border-radius: 0; }
-  .P .c-tag:first-child { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
-  .P .c-h1 { font-size: 92px; font-weight: 800; line-height: 1.12; letter-spacing: .01em; }
-  .P .c-sub { font-size: 30px; color: #555; font-weight: 400; letter-spacing: .04em; }
-  .P .c-block { padding: 32px 36px; border-top: 2px solid #1a1a1a; }
-  .P .c-block-t { font-size: 31px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
-  .P .c-block-t::before { content: ""; width: 12px; height: 28px; background: #E63946; }
-  .P .c-block-p { font-size: 29px; color: #3a3a3a; line-height: 1.6; }
-  .P .c-block-p b { color: #E63946; font-weight: 700; }
+  /* ============ 主题变量系统（默认 t-pentagram） ============ */
+  .card {
+    --bg: #fff; --ink: #1a1a1a; --accent: #E63946; --accent2: #E63946;
+    --line: #1a1a1a; --soft: #f5f5f5; --soft2: #fff;
+    --radius: 0px; --shadow: none; --pad: 54px 56px 46px;
+    --font-d: inherit; --font-b: inherit; --weight-d: 800; --weight-b: 400;
+    --num-style: italic; --tag-radius: 0px; --sep-w: 2px;
+    background: var(--bg); color: var(--ink); padding: var(--pad);
+    display: flex; flex-direction: column;
+  }
+  .card, .card * { font-family: var(--font-b); }
+  .card .c-h1, .card .step-title, .card .c-block-t, .card .cta-btn { font-family: var(--font-d); }
+
+  /* ============ 10 种风格主题 ============ */
+  .t-build     { --bg:#fbfaf7; --ink:#2b2a26; --accent:#D4A574; --line:#e9e4d8; --soft:#fff; --soft2:#fbfaf7; --weight-d:300; --weight-b:300; --pad:72px 80px 52px; }
+  .t-takram    { --bg:#f6f2ea; --ink:#3d3a33; --accent:#7a8a72; --line:#e0d9c8; --soft:#fff; --radius:20px; --shadow:0 4px 18px rgba(120,130,110,.08); --pad:52px 60px 46px; }
+  .t-muller    { --bg:#fff; --ink:#000; --accent:#000; --line:#000; --soft:#f2f2f2; --weight-d:900; --weight-b:700; --num-style:normal; --pad:48px 52px 40px; }
+  .t-fathom    { --bg:#f4f6f8; --ink:#1b2a41; --accent:#E76F51; --line:#cdd6e0; --soft:#fff; --radius:8px; --sep-w:1px; }
+  .t-ia        { --bg:#fff; --ink:#111; --accent:#3B6EA5; --line:#e8e8e8; --soft:#fafafa; --weight-d:600; --sep-w:1px; }
+  .t-sagmeister{ --bg:#faf6e9; --ink:#202020; --accent:#E63946; --accent2:#1E5AA8; --line:#e6dbbd; --soft:#fff; --radius:14px; --sep-w:1px; --weight-d:800; }
+  .t-hara      { --bg:#f4f1ea; --ink:#2a241e; --accent:#C0392B; --line:#d9d1c3; --soft:#efe9dd; --pad:70px 72px 50px; }
+  .t-jetset    { --bg:#fff; --ink:#0a0a0a; --accent:#ffd400; --line:#0a0a0a; --soft:#fff; --weight-d:900; --weight-b:600; --num-style:normal; --tag-radius:0px; }
+  .t-boom      { --bg:#faf7f2; --ink:#3d2f24; --accent:#8a6d4b; --line:#ddd2c0; --soft:#f2ece2; --font-d:Georgia,"Source Serif","SimSun",serif; --font-b:Georgia,"SimSun",serif; --sep-w:1px; }
+
+  /* ============ 通用组件（基于变量） ============ */
+  .c-label { font-size: 20px; font-weight: 600; letter-spacing: .14em; }
+  .c-label::before { content: "#"; color: var(--accent); }
+  .c-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+  .c-tag { font-size: 21px; padding: 9px 20px; border: var(--sep-w) solid var(--ink); font-weight: 600; border-radius: var(--tag-radius); color: var(--ink); background: transparent; }
+  .c-tag:first-child { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .c-h1 { font-size: 92px; font-weight: var(--weight-d); line-height: 1.12; letter-spacing: .01em; font-style: normal; }
+  .c-h1 b, .hl { color: var(--accent); font-weight: inherit; }
+  .c-sub { font-size: 30px; color: var(--ink); opacity: .72; font-weight: 400; letter-spacing: .04em; }
+  .c-block { padding: 32px 36px; border-top: var(--sep-w) solid var(--line); }
+  .c-block-t { font-size: 31px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+  .c-block-t::before { content: ""; width: 12px; height: 28px; background: var(--accent); border-radius: var(--radius); flex: none; }
+  .c-block-p { font-size: 29px; color: var(--ink); opacity: .85; line-height: 1.6; }
+  .c-block-p b { color: var(--accent); font-weight: 700; }
 
   /* STEP 标识 */
-  .step-no { display: inline-block; font-size: 24px; font-weight: 800; color: #E63946; letter-spacing: .14em; border: 2.5px solid #E63946; padding: 8px 18px; }
+  .step-no { display: inline-block; font-size: 24px; font-weight: 800; color: var(--accent); letter-spacing: .14em; border: 2.5px solid var(--accent); padding: 8px 18px; font-style: normal; }
   .pill { border-radius: 999px; font-size: 18px; padding: 6px 16px; }
 
-  /* 步骤块（无大编号） */
-  .step-block { padding: 22px 0; border-top: 2px solid #1a1a1a; }
-  .step-title { font-size: 40px; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
-  .step-title::before { content: ""; width: 12px; height: 28px; background: #E63946; }
-  .step-desc { font-size: 30px; color: #3a3a3a; line-height: 1.6; }
-  .step-desc b { color: #E63946; }
-  .step-line { display: flex; gap: 12px; align-items: baseline; font-size: 29px; line-height: 1.55; padding: 19px 0; border-bottom: 1px dashed #ddd; }
-  .step-line b { min-width: 34px; color: #E63946; font-weight: 700; }
+  /* 步骤块 */
+  .step-block { padding: 22px 0; border-top: var(--sep-w) solid var(--line); }
+  .step-title { font-size: 40px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+  .step-title::before { content: ""; width: 12px; height: 28px; background: var(--accent); border-radius: var(--radius); flex: none; }
+  .step-desc { font-size: 30px; color: var(--ink); opacity: .85; line-height: 1.6; }
+  .step-desc b { color: var(--accent); }
+  .step-line { display: flex; gap: 12px; align-items: baseline; font-size: 29px; line-height: 1.55; padding: 19px 0; border-bottom: 1px dashed var(--line); color: var(--ink); opacity: .9; }
+  .step-line b { min-width: 34px; color: var(--accent); font-weight: 700; }
 
   /* 参数卡 */
   .param-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-  .param { border: 2px solid #1a1a1a; padding: 24px 10px; text-align: center; }
-  .param .pv { font-size: 46px; font-weight: 800; color: #E63946; line-height: 1.1; }
-  .param .pl { font-size: 20px; color: #555; margin-top: 8px; letter-spacing: .04em; }
+  .param { border: var(--sep-w) solid var(--ink); padding: 24px 10px; text-align: center; border-radius: var(--radius); }
+  .param .pv { font-size: 46px; font-weight: 800; color: var(--accent); line-height: 1.1; font-style: var(--num-style); font-variant-numeric: tabular-nums; }
+  .param .pl { font-size: 20px; color: var(--ink); opacity: .65; margin-top: 8px; letter-spacing: .04em; }
 
   /* 优点格 */
   .why-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
-  .why { border-top: 4px solid #E63946; padding: 20px 8px 8px; }
+  .why { border-top: 4px solid var(--accent); padding: 20px 8px 8px; }
   .why .wn { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
-  .why .wd { font-size: 22px; color: #555; line-height: 1.45; }
+  .why .wd { font-size: 22px; color: var(--ink); opacity: .65; line-height: 1.45; }
 
-  /* 五步目录（概览页） */
-  .step-dir { display: flex; gap: 18px; padding: 20px 0; border-bottom: 1px dashed #ddd; align-items: baseline; }
-  .step-dir .dn { font-size: 27px; font-weight: 800; color: #E63946; min-width: 88px; }
+  /* 五步目录 */
+  .step-dir { display: flex; gap: 18px; padding: 20px 0; border-bottom: 1px dashed var(--line); align-items: baseline; }
+  .step-dir .dn { font-size: 27px; font-weight: 800; color: var(--accent); min-width: 88px; font-style: var(--num-style); }
   .step-dir .dt { font-size: 29px; font-weight: 700; min-width: 170px; }
-  .step-dir .dd { font-size: 24px; color: #555; line-height: 1.4; }
+  .step-dir .dd { font-size: 24px; color: var(--ink); opacity: .6; line-height: 1.4; }
 
   /* 速记条 */
   .recape { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
-  .recape-item { border: 2px solid #1a1a1a; padding: 22px 8px; text-align: center; }
-  .recape-item .r-n { font-size: 32px; font-weight: 800; color: #E63946; }
-  .recape-item .r-t { font-size: 20px; margin-top: 6px; letter-spacing: .06em; }
+  .recape-item { border: var(--sep-w) solid var(--ink); padding: 22px 8px; text-align: center; border-radius: var(--radius); }
+  .recape-item .r-n { font-size: 32px; font-weight: 800; color: var(--accent); font-style: var(--num-style); }
+  .recape-item .r-t { font-size: 20px; margin-top: 6px; letter-spacing: .06em; opacity: .8; }
 
   /* 提示条 */
-  .tip { border: 2px solid #E63946; background: #fff5f5; padding: 22px 28px; font-size: 27px; line-height: 1.55; color: #3a3a3a; }
-  .tip b { color: #E63946; }
+  .tip { border: 2px solid var(--accent); background: color-mix(in srgb, var(--accent) 7%, var(--soft)); padding: 22px 28px; font-size: 27px; line-height: 1.55; color: var(--ink); border-radius: var(--radius); }
+  .tip b { color: var(--accent); }
 
   /* 配图 */
-  .fig { display: flex; align-items: center; justify-content: center; border: 2px solid #1a1a1a; background: #fff; padding: 10px; }
+  .note-row { display: flex; gap: 14px; align-items: flex-start; padding: 31px 0; font-size: 30px; line-height: 1.55; border-bottom: 1px dashed var(--line); }
+  .note-bullet { color: var(--accent); font-size: 32px; line-height: 1; }
+  .t-muller .note-row { padding: 35px 0; }
+  .t-muller .tip { padding: 30px 32px; }
+  .fig-wrap { margin: 18px 0 6px; }
+  .t-muller .fig-wrap { margin-top: 26px; }
+  .t-boom .fig-wrap { margin-top: 26px; }
+  .fig { display: flex; align-items: center; justify-content: center; border: var(--sep-w) solid var(--line); background: var(--soft2); padding: 10px; border-radius: var(--radius); }
   .fig-row { gap: 14px; }
   .fig-col { flex-direction: column; gap: 12px; }
-  .fig-item { flex: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #ddd; background: #fff; }
+  .fig-item { flex: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid var(--line); background: var(--soft2); border-radius: var(--radius); }
   .fig-item img, .fig img { max-width: 100%; max-height: 100%; object-fit: contain; }
-  .fig-cap { text-align: center; font-size: 20px; opacity: .55; margin-top: 12px; letter-spacing: .04em; }
+  .fig-cap { text-align: center; font-size: 20px; opacity: .5; margin-top: 12px; letter-spacing: .04em; }
 
-  /* 封面专用（纯标题居中构图） */
+  /* 封面 / 封底 */
   .cover-only .cover-main { flex: 1; display: flex; flex-direction: column; justify-content: center; }
   .cover-only .cover-main .c-h1 { font-size: 96px; }
-  .P .hl { color: #E63946; }
-  .P .c-h1 b { color: #E63946; }
-  .cta-btn { display: inline-block; background: #E63946; color: #fff; font-size: 44px; font-weight: 800; padding: 24px 64px; letter-spacing: .2em; }
-  .cta-sub { margin-top: 18px; font-size: 24px; color: #555; letter-spacing: .08em; }
+  .cta-btn { display: inline-block; background: var(--accent); color: #fff; font-size: 44px; font-weight: 800; padding: 24px 64px; letter-spacing: .2em; border-radius: var(--radius); }
   .logo-ige { width: 230px; height: auto; margin: 40px auto 0; display: block; }
+
+  /* ============ 风格特有签名（override） ============ */
+  /* Build：金线 + 超细 */
+  .t-build .c-block-t { letter-spacing: .3em; color: var(--ink); opacity: .85; font-weight: 500; }
+  .t-build .c-block-t::before { width: 40px; height: 1px; background: var(--accent); }
+  .t-build .c-tag { border-color: var(--line); font-weight: 300; color: var(--ink); opacity: .8; }
+  /* Takram：圆点 + 柔和阴影卡片 */
+  .t-takram .c-block-t::before { width: 14px; height: 14px; border-radius: 50%; }
+  .t-takram .c-block { border-radius: var(--radius); box-shadow: var(--shadow); background: var(--soft2); border-top: none; margin-bottom: 16px; }
+  .t-takram .step-block { background: var(--soft2); border-radius: var(--radius); box-shadow: var(--shadow); border-top: none; padding: 24px 28px; }
+  .t-takram .tip { background: #efe9dc; border-color: transparent; }
+  /* Müller：纯黑白粗体，无圆角，标签实心 */
+  .t-muller .c-block-t::before { background: var(--ink); }
+  .t-muller .step-no { border-color: var(--ink); color: var(--ink); }
+  .t-muller .c-tag { border-width: 3px; font-weight: 900; }
+  .t-muller .c-tag:first-child { background: var(--ink); }
+  /* Fathom：数据感（点线分隔、圆形锚点、等宽数字） */
+  .t-fathom .c-block-t::before { width: 14px; height: 14px; border-radius: 50%; background: var(--accent); }
+  .t-fathom .step-line { border-bottom: 1px dotted var(--line); }
+  .t-fathom .param { background: var(--soft2); border-color: var(--line); }
+  .t-fathom .param .pv { color: var(--ink); }
+  .t-fathom .param .pv::after { content: ""; display: block; width: 30px; height: 3px; background: var(--accent); margin: 10px auto 0; }
+  /* iA：内容优先，克制 */
+  .t-ia .c-block-t::before { background: var(--accent); }
+  .t-ia .c-tag { border-radius: 999px; }
+  .t-ia .c-tag:first-child { background: var(--ink); }
+  /* Sagmeister：撞色活泼 */
+  .t-sagmeister .c-block-t::before { background: var(--accent2); }
+  .t-sagmeister .step-title::before { background: var(--accent2); }
+  .t-sagmeister .param .pv { color: var(--accent2); }
+  .t-sagmeister .cta-btn { background: var(--accent2); }
+  .t-sagmeister .c-h1 b, .t-sagmeister .hl { color: var(--accent2); }
+  .t-sagmeister .recape-item .r-n { color: var(--accent2); }
+  .t-sagmeister .c-tag:first-child { background: var(--accent); border-color: var(--accent); }
+  .t-sagmeister .step-dir .dn { color: var(--accent2); }
+  /* Hara：朱红印章 + 大留白 */
+  .t-hara .c-block-t::before { width: 22px; height: 22px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 25%, transparent); }
+  .t-hara .step-title::before { width: 22px; height: 22px; border-radius: 50%; background: var(--accent); }
+  .t-hara .c-tag { border-radius: 0; border-color: var(--line); }
+  .t-hara .c-tag:first-child { background: var(--accent); border-color: var(--accent); }
+  .t-hara .cta-btn { background: var(--accent); }
+  .t-hara .c-h1 { letter-spacing: .06em; }
+  /* Jetset：居中宣言式 */
+  .t-jetset .c-h1 { text-align: center; }
+  .t-jetset .step-title, .t-jetset .c-block-t { text-align: center; justify-content: center; }
+  .t-jetset .c-block-t::before, .t-jetset .step-title::before { display: none; }
+  .t-jetset .c-tag { border-width: 3px; font-weight: 900; letter-spacing: .1em; }
+  .t-jetset .step-no { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .t-jetset .param .pv { color: var(--ink); }
+  .t-jetset .cta-btn { background: var(--ink); }
+  /* Boom：衬线书卷 + 装订线 */
+  .t-boom .c-block { border-top: none; border-left: 1px solid var(--line); padding: 40px 38px 40px 40px; }
+  .t-boom .c-block-t::before { width: 5px; height: 32px; background: var(--accent); }
+  .t-boom .step-block { border-top: none; border-left: 1px solid var(--line); padding-left: 40px; }
+  .t-boom .step-title::before { width: 5px; height: 32px; background: var(--accent); }
+  .t-boom .c-tag { border-color: var(--line); font-weight: 600; }
+  .t-boom .param { border-color: var(--line); background: var(--soft); }
+  .t-boom .param .pv { color: var(--ink); }
 </style>
 </head>
 <body>
-<div class="stage">
-  <div class="group-title">理性实验手册 · 瑞士网格 · 信息建筑（1080 × 1440 × 10 页）</div>
-  <div class="card-row" id="row"></div>
-</div>
+<div class="stage" id="stage"></div>
 
 <script>
 /* ============ 内容数据 ============ */
@@ -105,162 +188,80 @@ const DIR = [
 ];
 
 const PAGES = [
-  // ===== P1 封面（纯标题）=====
-  {
-    type: 'cover',
-    tags: ['质粒构建', '无缝克隆', '实验干货'],
-    sub: '分子克隆高频技能 · <span class="hl">五步详解</span>',
-    h1: '质粒构建<br><span class="hl">同源重组</span><b>怎么做？</b>',
-    sub2: '目的基因不用酶切 · <span class="hl">无缝克隆</span>全流程',
-  },
-  // ===== P2 本篇概览 =====
-  {
-    type: 'content', label: '本篇内容 · 五步概览', title: '5 步搞定无缝克隆',
-    blocks: [
-      { why: [
-          ['免酶切', '目的基因不用切'],
-          ['任意位点', '载体任意位置可插入'],
-          ['无缝连接', '无多余序列残留'],
-      ]},
+  { type: 'cover', tags: ['质粒构建', '无缝克隆', '实验干货'], sub: '分子克隆高频技能 · <span class="hl">五步详解</span>', h1: '质粒构建<br><span class="hl">同源重组</span><b>怎么做？</b>', sub2: '目的基因不用酶切 · <span class="hl">无缝克隆</span>全流程' },
+  { type: 'content', label: '本篇内容 · 五步概览', title: '5 步搞定无缝克隆', blocks: [
+      { why: [['免酶切', '目的基因不用切'], ['任意位点', '载体任意位置可插入'], ['无缝连接', '无多余序列残留']] },
       { t: '一句话原理', p: '目的片段两端带上与载体一致的 <b>15–20 bp 同源臂</b>，重组酶催化同源序列交换 → <b>无缝连接</b>。' },
       { dir: DIR },
-    ],
-  },
-  // ===== P3 STEP 1 引物设计 =====
-  {
-    type: 'step', step: 1, title: '引物设计', label: '先懂原理 · 再设计引物',
-    blocks: [
+  ]},
+  { type: 'step', step: 1, title: '引物设计', label: '先懂原理 · 再设计引物', blocks: [
       { t: '核心原理', p: '目的片段两端引入与<b>载体完全一致</b>的 <b>15–20 bp 同源臂</b>，重组酶催化两端同源序列交换，<b>无缝连接</b>——目的基因<b>不用酶切</b>，载体任意位点可插。' },
       { step: { t: '引物设计要点', d: '同源臂 <b>15–20 bp</b>（GC <b>40–60%</b>）+ 基因特异序列；<b>Tm 只算特异区</b>，同源臂不参与。' }},
       { imgs: ['imgs/fig-primer1.png', 'imgs/fig-primer2.png'], col: true, h: 400, cap: '▲ 引物设计方案' },
-    ],
-  },
-  // ===== P4 STEP 2 载体线性化 =====
-  {
-    type: 'step', step: 2, title: '载体线性化', label: '核心一步 · 成败关键',
-    blocks: [
+  ]},
+  { type: 'step', step: 2, title: '载体线性化', label: '核心一步 · 成败关键', blocks: [
       { step: { t: '载体线性化要点', d: '选 <b>GC 均匀、无重复序列</b>区域；插入区上下游 <b>20 bp</b> 内 GC <b>40–60%</b> 时重组效率最高。' }},
       { params: [['40–60%', '插入区 GC'], ['20 bp', '评估窗口'], ['2 种', '酶切 / 反向 PCR']]},
       { imgs: ['imgs/fig-digest.png', 'imgs/fig-pcr.jpg'], col: true, h: 430, cap: '▲ 酶切 / 反向 PCR 线性化' },
-    ],
-  },
-  // ===== P5 STEP 3 重组连接 =====
-  {
-    type: 'step', step: 3, title: '重组连接', label: '核心一步 · 定量连接',
-    blocks: [
+  ]},
+  { type: 'step', step: 3, title: '重组连接', label: '核心一步 · 定量连接', blocks: [
       { step: { t: '重组连接要点', d: '载体 <b>0.03 pmol ∶ 片段 0.06 pmol</b>；加 UvsXase 重组酶，<b>37 ℃ 孵育 30 min</b>，添加量按公式计算。' }},
       { params: [['0.03', '载体 pmol'], ['0.06', '片段 pmol'], ['37 ℃ 30min', '反应条件']]},
       { img: 'imgs/fig-formula.png', h: 380, cap: '▲ 添加量计算公式' },
-    ],
-  },
-  // ===== P6 STEP 4 转化 =====
-  {
-    type: 'step', step: 4, title: '转化', label: '落地实操 · 四步转化',
-    blocks: [
-      { t: '转化流程', lines: [
-          ['a)', '10 µl 产物 + 100 µl 感受态（TOP10 / DH5α）'],
-          ['b)', '冰浴 30 min'],
-          ['c)', '42 ℃ 热激 45 s → 冰浴 2–3 min'],
-          ['d)', '800 µl 无抗 LB，200 rpm 37 ℃ 摇 45–60 min'],
-          ['e)', '离心去上清 → 涂抗性平板'],
-      ]},
+  ]},
+  { type: 'step', step: 4, title: '转化', label: '落地实操 · 四步转化', blocks: [
+      { t: '转化流程', lines: [['a)', '10 µl 产物 + 100 µl 感受态（TOP10 / DH5α）'], ['b)', '冰浴 30 min'], ['c)', '42 ℃ 热激 45 s → 冰浴 2–3 min'], ['d)', '800 µl 无抗 LB，200 rpm 37 ℃ 摇 45–60 min'], ['e)', '离心去上清 → 涂抗性平板']]},
       { params: [['42 ℃ 45s', '热激条件'], ['200 rpm', '摇菌转速'], ['1 ∶ 10', '产物∶感受态']]},
       { tip: '关键：重组产物 ∶ 感受态体积 = <b>1 ∶ 10</b>，超出会降低成功率' },
-    ],
-  },
-  // ===== P7 STEP 5 筛选测序 =====
-  {
-    type: 'step', step: 5, title: '筛选测序', label: '收官验证 · 确认无误',
-    blocks: [
-      { t: '验证流程', lines: [
-          ['①', '挑取 3–5 个单克隆摇菌'],
-          ['②', '菌落 PCR 或提取质粒酶切鉴定'],
-          ['③', '送质粒或菌液测序验证'],
-      ]},
+  ]},
+  { type: 'step', step: 5, title: '筛选测序', label: '收官验证 · 确认无误', blocks: [
+      { t: '验证流程', lines: [['①', '挑取 3–5 个单克隆摇菌'], ['②', '菌落 PCR 或提取质粒酶切鉴定'], ['③', '送质粒或菌液测序验证']]},
       { params: [['3–5 个', '单克隆'], ['PCR / 酶切', '初筛方式'], ['测序', '最终确认']]},
       { t: '为什么要测序', p: '菌落 PCR 只能确认片段<b>存在</b>；测序才能确认<b>无突变、插入方向正确</b>，构建才算完成。' },
-    ],
-  },
-  // ===== P8 避坑指南 =====
-  {
-    type: 'content', label: '看完少走弯路', title: '避坑指南',
-    blocks: [
-      { t: '四个关键提醒', notes: [
-          '同源臂 GC 需在 <b>40–60%</b>，超出影响重组效率',
-          '切胶回收 <b>&lt; 2 min</b>；浓度 <b>&lt; 20 ng/µl</b> 多管合并',
-          '重组产物 ∶ 感受态 = <b>1 ∶ 10</b>（体积）',
-          '目的片段 <b>&gt; 5000 bp</b> → 分段 PCR 再重组',
-      ]},
+  ]},
+  { type: 'content', label: '看完少走弯路', title: '避坑指南', blocks: [
+      { t: '四个关键提醒', notes: ['同源臂 GC 需在 <b>40–60%</b>，超出影响重组效率', '切胶回收 <b>&lt; 2 min</b>；浓度 <b>&lt; 20 ng/µl</b> 多管合并', '重组产物 ∶ 感受态 = <b>1 ∶ 10</b>（体积）', '目的片段 <b>&gt; 5000 bp</b> → 分段 PCR 再重组'] },
       { img: 'imgs/fig-note.png', h: 400, cap: '▲ 分段 PCR 处理长片段' },
-    ],
-  },
-  // ===== P9 快速排查 =====
-  {
-    type: 'content', label: '常见问题 · 快速排查', title: '搞定疑难杂症',
-    blocks: [
-      { faq: [
-          ['不长克隆 / 长得少？', '查载体片段比例、感受态效价（空载对照）、反应温度时间是否充分。'],
-          ['菌落 PCR 没有条带？', '载体线性化不充分 → 延长酶切并胶回收；可能有杂菌 → 加阴性对照。'],
-          ['同源臂 GC 多少合适？', '<b>40–60%</b>，超出范围会直接拉低重组效率。'],
-          ['片段太长怎么办？', '目的基因 <b>&gt; 5000 bp</b> → 分段 PCR 扩增后再进行重组反应。'],
-      ]},
+  ]},
+  { type: 'content', label: '常见问题 · 快速排查', title: '搞定疑难杂症', blocks: [
+      { faq: [['不长克隆 / 长得少？', '查载体片段比例、感受态效价（空载对照）、反应温度时间是否充分。'], ['菌落 PCR 没有条带？', '载体线性化不充分 → 延长酶切并胶回收；可能有杂菌 → 加阴性对照。'], ['同源臂 GC 多少合适？', '<b>40–60%</b>，超出范围会直接拉低重组效率。'], ['片段太长怎么办？', '目的基因 <b>&gt; 5000 bp</b> → 分段 PCR 扩增后再进行重组反应。']] },
       { tip: '小贴士：用 <b>空载质粒</b>转化感受态作对照，可快速判断是感受态问题还是重组反应问题' },
-    ],
-  },
-  // ===== P10 封底（关注引导）=====
-  {
-    type: 'end',
-    tags: ['质粒构建', '无缝克隆', '实验干货'],
-    foot: '艾基生物 · 更多干货在路上',
-  },
+  ]},
+  { type: 'end', tags: ['质粒构建', '无缝克隆', '实验干货'], foot: '艾基生物 · 更多干货在路上' },
+];
+
+/* ============ 10 种风格 ============ */
+const STYLES = [
+  { id: 'pentagram', cls: 't-pentagram', name: '理性实验手册 · 瑞士网格', desc: 'Pentagram · 白底黑字 + 红 #E63946' },
+  { id: 'build',     cls: 't-build',     name: '高级留白 · 当代极简',     desc: 'Build · 米白 + 暖金 #D4A574' },
+  { id: 'takram',    cls: 't-takram',    name: '柔和科普 · 日式思辨',     desc: 'Takram · 米色 + 自然绿 #7a8a72' },
+  { id: 'muller',    cls: 't-muller',    name: '瑞士海报 · 纯粹主义',     desc: 'Müller-Brockmann · 纯黑白粗体' },
+  { id: 'fathom',    cls: 't-fathom',    name: '科研数据 · 科学叙事',     desc: 'Fathom · 浅蓝灰 + 橙 #E76F51' },
+  { id: 'ia',        cls: 't-ia',        name: '内容优先 · 信息建筑',     desc: 'iA · 纯白 + 单蓝 #3B6EA5' },
+  { id: 'sagmeister',cls: 't-sagmeister',name: '活力撞色 · 快乐极简',     desc: 'Sagmeister · 米黄 + 红蓝撞色' },
+  { id: 'hara',      cls: 't-hara',      name: '日式空寂 · 空的设计',     desc: 'Kenya Hara · 纸色 + 朱红印章' },
+  { id: 'jetset',    cls: 't-jetset',    name: '海报宣言 · 概念极简',     desc: 'Experimental Jetset · 居中大字' },
+  { id: 'boom',      cls: 't-boom',      name: '书籍版式 · 书籍建筑师',   desc: 'Irma Boom · 衬线 + 装订线' },
 ];
 
 /* ============ 渲染 ============ */
 function blockHTML(b) {
-  if (b.why) {
-    return `<div class="c-block"><div class="c-block-t">三大优势</div><div class="why-grid">${b.why.map(w => `<div class="why"><div class="wn">${w[0]}</div><div class="wd">${w[1]}</div></div>`).join('')}</div></div>`;
-  }
-  if (b.dir) {
-    return `<div class="c-block"><div class="c-block-t">五步流程</div>${b.dir.map(d => `<div class="step-dir"><div class="dn">STEP ${d[0]}</div><div class="dt">${d[1]}</div><div class="dd">${d[2]}</div></div>`).join('')}</div>`;
-  }
-  if (b.recape) {
-    const t = b.title ? `<div class="c-block-t">${b.title}</div>` : '';
-    return `<div class="c-block"><div class="recape">${b.recape.map(r => `<div class="recape-item"><div class="r-n">${r[0]}</div><div class="r-t">${r[1]}</div></div>`).join('')}</div>${t}</div>`;
-  }
-  if (b.step) {
-    return `<div class="step-block"><div class="step-title">${b.step.t}</div><div class="step-desc">${b.step.d}</div></div>`;
-  }
-  if (b.params) {
-    return `<div class="c-block"><div class="c-block-t">关键参数</div><div class="param-grid">${b.params.map(p => `<div class="param"><div class="pv">${p[0]}</div><div class="pl">${p[1]}</div></div>`).join('')}</div></div>`;
-  }
-  if (b.tip) {
-    return `<div class="c-block" style="padding:16px 0"><div class="tip">${b.tip}</div></div>`;
-  }
-  if (b.faq) {
-    return `<div class="c-block"><div class="c-block-t">常见问题</div>${b.faq.map(f => `<div class="tip" style="border-color:#1a1a1a;background:#f6f6f6;margin-bottom:18px;font-size:29px;padding:34px 38px"><b style="color:#1a1a1a">${f[0]}</b><br>${f[1]}</div>`).join('')}</div>`;
-  }
-  if (b.notes) {
-    return `<div class="c-block"><div class="c-block-t">${b.t}</div>${b.notes.map(n => `<div style="display:flex;gap:14px;align-items:flex-start;padding:28px 0;font-size:30px;line-height:1.55;border-bottom:1px dashed #ddd"><span style="color:#E63946;font-size:32px;line-height:1">◆</span><div>${n}</div></div>`).join('')}</div>`;
-  }
-  if (b.lines) {
-    return `<div class="c-block" style="margin-bottom:18px"><div class="c-block-t">${b.t}</div>${b.lines.map(l => `<div class="step-line"><b>${l[0]}</b><div>${l[1]}</div></div>`).join('')}</div>`;
-  }
-  if (b.imgs) {
-    const items = b.imgs.map(src => `<div class="fig-item"><img src="${src}"></div>`).join('');
-    const cap = b.cap ? `<div class="fig-cap">${b.cap}</div>` : '';
-    const cls = b.col ? 'fig fig-col' : 'fig fig-row';
-    return `<div style="margin:18px 0 6px"><div class="${cls}" style="height:${b.h}px">${items}</div>${cap}</div>`;
-  }
-  if (b.img) {
-    const cap = b.cap ? `<div class="fig-cap">${b.cap}</div>` : '';
-    return `<div style="margin:18px 0 6px"><div class="fig" style="height:${b.h}px"><img src="${b.img}"></div>${cap}</div>`;
-  }
+  if (b.why) return `<div class="c-block"><div class="c-block-t">三大优势</div><div class="why-grid">${b.why.map(w => `<div class="why"><div class="wn">${w[0]}</div><div class="wd">${w[1]}</div></div>`).join('')}</div></div>`;
+  if (b.dir) return `<div class="c-block"><div class="c-block-t">五步流程</div>${b.dir.map(d => `<div class="step-dir"><div class="dn">STEP ${d[0]}</div><div class="dt">${d[1]}</div><div class="dd">${d[2]}</div></div>`).join('')}</div>`;
+  if (b.recape) { const t = b.title ? `<div class="c-block-t">${b.title}</div>` : ''; return `<div class="c-block"><div class="recape">${b.recape.map(r => `<div class="recape-item"><div class="r-n">${r[0]}</div><div class="r-t">${r[1]}</div></div>`).join('')}</div>${t}</div>`; }
+  if (b.step) return `<div class="step-block"><div class="step-title">${b.step.t}</div><div class="step-desc">${b.step.d}</div></div>`;
+  if (b.params) return `<div class="c-block"><div class="c-block-t">关键参数</div><div class="param-grid">${b.params.map(p => `<div class="param"><div class="pv">${p[0]}</div><div class="pl">${p[1]}</div></div>`).join('')}</div></div>`;
+  if (b.tip) return `<div class="c-block" style="padding:16px 0"><div class="tip">${b.tip}</div></div>`;
+  if (b.faq) return `<div class="c-block"><div class="c-block-t">常见问题</div>${b.faq.map(f => `<div class="tip" style="margin-bottom:18px"><b>${f[0]}</b><br>${f[1]}</div>`).join('')}</div>`;
+  if (b.notes) return `<div class="c-block"><div class="c-block-t">${b.t}</div>${b.notes.map(n => `<div class="note-row"><span class="note-bullet">◆</span><div>${n}</div></div>`).join('')}</div>`;
+  if (b.lines) return `<div class="c-block" style="margin-bottom:18px"><div class="c-block-t">${b.t}</div>${b.lines.map(l => `<div class="step-line"><b>${l[0]}</b><div>${l[1]}</div></div>`).join('')}</div>`;
+  if (b.imgs) { const items = b.imgs.map(src => `<div class="fig-item"><img src="${src}"></div>`).join(''); const cap = b.cap ? `<div class="fig-cap">${b.cap}</div>` : ''; const cls = b.col ? 'fig fig-col' : 'fig fig-row'; return `<div class="fig-wrap"><div class="${cls}" style="height:${b.h}px">${items}</div>${cap}</div>`; }
+  if (b.img) { const cap = b.cap ? `<div class="fig-cap">${b.cap}</div>` : ''; return `<div class="fig-wrap"><div class="fig" style="height:${b.h}px"><img src="${b.img}"></div>${cap}</div>`; }
   return `<div class="c-block"><div class="c-block-t">${b.t}</div><div class="c-block-p">${b.p}</div></div>`;
 }
 
-function coverCard(p, i, total) {
-  return `
-  <div class="card P cover-only">
+function coverCard(S, p, i, total) {
+  return `<div class="card ${S.cls} cover-only">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:30px">
       <div class="c-tags">${p.tags.map(t => `<span class="c-tag">${t}</span>`).join('')}</div>
       <span class="c-label">技术 · 干货</span>
@@ -274,9 +275,8 @@ function coverCard(p, i, total) {
   </div>`;
 }
 
-function endCard(p, i, total) {
-  return `
-  <div class="card P cover-only">
+function endCard(S, p, i, total) {
+  return `<div class="card ${S.cls} cover-only">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:30px">
       <div class="c-tags">${p.tags.map(t => `<span class="c-tag">${t}</span>`).join('')}</div>
       <span class="c-label">技术 · 干货</span>
@@ -284,20 +284,17 @@ function endCard(p, i, total) {
     <div class="cover-main" style="text-align:center">
       <div class="c-sub" style="margin-bottom:22px;letter-spacing:.32em">FIN · 5 步完结</div>
       <div class="c-h1">感谢阅读<br><span class="hl">感谢关注</span></div>
-      <img class="logo-ige" src="imgs/logo-ige.png" alt="艾基生物 IGE">
-      <div style="margin-top:32px">
-        <div class="cta-btn">＋ 关注</div>
-      </div>
+      <img class="logo-ige" src="imgs/logo-ige.png" alt="品牌 LOGO">
+      <div style="margin-top:32px"><div class="cta-btn">＋ 关注</div></div>
     </div>
-    <div style="text-align:center;font-size:22px;color:#888;letter-spacing:.18em">${p.foot}</div>
+    <div style="text-align:center;font-size:22px;color:var(--ink);opacity:.55;letter-spacing:.18em">${p.foot}</div>
     <span class="card-index">${i}/${total}</span>
   </div>`;
 }
 
-function stepCard(p, i, total) {
+function stepCard(S, p, i, total) {
   const no = String(p.step).padStart(2, '0');
-  return `
-  <div class="card P">
+  return `<div class="card ${S.cls}">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:26px">
       <span class="step-no">STEP ${no} / 05</span>
       <span class="pill c-tag">${i}/${total}</span>
@@ -309,9 +306,8 @@ function stepCard(p, i, total) {
   </div>`;
 }
 
-function contentCard(p, i, total) {
-  return `
-  <div class="card P">
+function contentCard(S, p, i, total) {
+  return `<div class="card ${S.cls}">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
       <span class="c-label">${p.label}</span>
       <span class="pill c-tag">${i}/${total}</span>
@@ -322,16 +318,36 @@ function contentCard(p, i, total) {
   </div>`;
 }
 
-const row = document.getElementById('row');
-const total = PAGES.length;
-PAGES.forEach((p, i) => {
-  let html;
-  if (p.type === 'cover') html = coverCard(p, i + 1, total);
-  else if (p.type === 'end') html = endCard(p, i + 1, total);
-  else if (p.type === 'step') html = stepCard(p, i + 1, total);
-  else html = contentCard(p, i + 1, total);
-  row.insertAdjacentHTML('beforeend', html);
-});
+/* ============ 入口 ============ */
+const stage = document.getElementById('stage');
+const params = new URLSearchParams(location.search);
+const styleId = params.get('style');
+const allStyles = params.has('all-styles');
+
+function renderAll(S) {
+  const group = document.createElement('div');
+  group.className = 'group';
+  group.innerHTML = `<div class="group-title">${S.name} — ${S.desc}</div><div class="card-row"></div>`;
+  const row = group.querySelector('.card-row');
+  const total = PAGES.length;
+  PAGES.forEach((p, i) => {
+    let html;
+    if (p.type === 'cover') html = coverCard(S, p, i + 1, total);
+    else if (p.type === 'end') html = endCard(S, p, i + 1, total);
+    else if (p.type === 'step') html = stepCard(S, p, i + 1, total);
+    else html = contentCard(S, p, i + 1, total);
+    row.insertAdjacentHTML('beforeend', html);
+  });
+  stage.appendChild(group);
+}
+
+if (allStyles) {
+  STYLES.forEach(s => renderAll(s));
+} else {
+  const S = STYLES.find(s => s.id === styleId) || STYLES[0];
+  document.title = S.name + ' · 小红书卡片';
+  renderAll(S);
+}
 </script>
 </body>
 </html>

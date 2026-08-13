@@ -6,8 +6,6 @@ Xiaohongshu (RED) card generator as an AI Agent Skill — turn WeChat Official A
 
 > 本仓库是一个 **AI Agent Skill**（技能包），供 WorkBuddy / Claude Code 等支持 skills 的 agent 加载使用。
 
-> ✨ 已整合：本仓库能力已并入 [**studiohub**](https://github.com/flyanx/studiohub) —— 自媒体内容生产统一入口，单一工作流中即可调用（工作流 A·小红书卡片组）。
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-ready-4B32C3.svg)](SKILL.md)
 [![Playwright](https://img.shields.io/badge/Playwright-verified-2EAD33.svg)](scripts/verify.js)
@@ -80,13 +78,24 @@ Xiaohongshu (RED) card generator as an AI Agent Skill — turn WeChat Official A
 - 步骤数随内容自适应（不限于 5 步）
 - 内容 / 配图拥挤时自动拆页（每页 1-2 个信息块）
 
-### 3 种设计风格
+### 10 种设计风格（CSS 变量主题系统）
 
-| 风格 | 视觉 |
-|------|------|
-| 理性实验手册（默认） | 白底黑字 + 红色 #E63946、瑞士网格、编号区块 |
-| 高级留白 | 米白底 + 暖金 #D4A574、超轻字重、极简 |
-| 柔和科普 | 米色底 + 自然绿 #7a8a72、圆角卡片 |
+同一内容一键切换 10 种视觉风格；模板支持 `?style=xxx` 参数切换、`?all-styles` 全风格对比。
+
+| # | 风格 | 视觉签名 |
+|---|---|---|
+| 1 | **理性实验手册**（默认） | 白底黑字 + 红色 #E63946、瑞士网格、斜体大编号 |
+| 2 | 高级留白 | 米白 + 暖金 #D4A574、超轻字重、金线 |
+| 3 | 柔和科普 | 米色 + 自然绿 #7a8a72、圆角柔影卡片 |
+| 4 | 瑞士海报 | 纯黑白 900 粗体、严格网格、无圆角 |
+| 5 | 科研数据 | 浅蓝灰底 + 橙 #E76F51、点线分隔、等宽数字 |
+| 6 | 内容优先 | 纯白 + 单蓝 #3B6EA5、药丸标签、克制 |
+| 7 | 活力撞色 | 米黄底 + 红蓝撞色、圆润活泼 |
+| 8 | 日式空寂 | 纸色 + 朱红印章、大留白、圆形印章锚点 |
+| 9 | 海报宣言 | 纯黑大粗字、居中宣言式、黄 #ffd400 点缀 |
+| 10 | 书籍版式 | 衬线字体、装订线左栏、深棕墨 |
+
+![10 种风格预览墙](screenshots/10-styles-wall.png)
 
 ### 质量校验（强制）
 
