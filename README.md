@@ -103,7 +103,7 @@ Xiaohongshu (RED) card generator as an AI Agent Skill — turn WeChat Official A
 | 17 | 手绘草稿 | 手绘虚线边框 + 楷体涂鸦感 |
 | 18 | 时间线 | 左侧圆点时间轴贯穿 |
 | 19 | 卡片堆叠 | 独立白卡片 + 角标 + 贴纸墙 |
-| 20 | 分屏对比 | 上深下浅分屏 + 标题区深色 |
+| 20 | 分屏对比 | 左右对半 + 标题 mix-blend-mode 跨中线 + 分屏内容卡 + 日月装饰 |
 
 ![20 种风格预览墙](screenshots/10-styles-wall.png)
 
