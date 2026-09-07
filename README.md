@@ -1,10 +1,11 @@
 # xiaohongshu-card
 
-把公众号/搜狐科普文章一键做成小红书卡片组 — 1080×1440 · 原文配图解密 · Playwright 校验 · JPG 导出
+小红书内容一站式生产：**搜干货 → HTML 干货周报 → 一键做成小红书卡片组** — 跨平台检索 · 1080×1440 · 原文配图解密 · Playwright 校验 · JPG 导出
 
-Xiaohongshu (RED) card generator as an AI Agent Skill — turn WeChat Official Account / Sohu science articles into a set of 1080×1440 vertical cards with original figures, programmatic QA and high-quality JPG export.
+Xiaohongshu (RED) content studio as an AI Agent Skill — cross-platform synbio/molecular-biology digest search & HTML weekly report, plus turning WeChat Official Account / Sohu science articles into 1080×1440 vertical card sets with original figures, programmatic QA and high-quality JPG export.
 
 > 本仓库是一个 **AI Agent Skill**（技能包），供 WorkBuddy / Claude Code 等支持 skills 的 agent 加载使用。
+> 由制卡版（原 xiaohongshu-card）＋ 搜索版（原 wechat-synbio-digest）合并升级而来。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-ready-4B32C3.svg)](SKILL.md)
@@ -15,11 +16,15 @@ Xiaohongshu (RED) card generator as an AI Agent Skill — turn WeChat Official A
 
 ## 简介
 
-做小红书科普图文，通常要经过：抓取公众号 / 搜狐文章 → 提炼核心要点 → 下载原文配图（常被平台加密）→ 设计卡片排版 → 反复校对溢出与留白 → 导出多图。繁琐且标准难统一。
+本技能是**两条能力链合并的全能版**：
 
-`xiaohongshu-card` 把这一整条链路固化为可复用的技能：**输入一篇科普文章，输出一整套 10 页左右、可直接发布的小红书卡片（JPG 多图）**，全程无需手动排版。
+**A. 干货检索 / 周报（上游）**——跨平台检索中文互联网上的合成生物学 / 分子生物学**纯干货**（微信公众号 / B站 / 知乎 / 丁香园 / 公司官网技术专栏 / 行业论坛 / 系统教学站），输出对话内分组清单，或一键生成卡片式 HTML 干货周报。内容口径只收可收藏可复用的干货（知识科普 / 实验技巧 / 工具教程 / 方法学讲解），明确排除行业动态、广告营销与最新研究资讯。
 
-适用场景：分子生物学 · 合成生物学 · 科研科普 · 生物公司内容运营 · 公众号内容小红书化。
+**B. 小红书制卡（下游）**——输入一篇科普文章（公众号 / 搜狐号等），输出一整套 10 页左右、可直接发布的小红书卡片（1080×1440 JPG 多图）。通常要经过：抓取文章 → 提炼核心要点 → 下载原文配图（常被平台加密）→ 设计卡片排版 → 反复校对溢出与留白 → 导出多图。繁琐且标准难统一。
+
+两者可无缝衔接：先跑 A 找到好文章 → 点名某篇 → 跑 B 做成小红书卡片。
+
+适用场景：分子生物学 · 合成生物学 · 科研科普 · 生物公司内容运营 · 公众号内容小红书化 · 自媒体干货周报。
 
 ---
 
@@ -48,6 +53,22 @@ Xiaohongshu (RED) card generator as an AI Agent Skill — turn WeChat Official A
 ---
 
 ## 功能特性
+
+### PART A · 跨平台干货检索（原 wechat-synbio-digest 并入）
+
+| 能力 | 说明 |
+|---|---|
+| 平台覆盖 | 微信公众号 / B站 / 知乎 / 丁香园 / 公司官网技术专栏 / 行业论坛 / Bohrium 科学百科 / 生信教学站 |
+| 检索战术 | 内置「平台生态与检索战术表」——各平台对搜索引擎暴露度差异大，打法完全不同（微信靠镜像回源、B站定向 UP 主、知乎专栏追踪首发等） |
+| 内容口径 | 纯干货：知识科普 / 实验技巧 / 工具教程 / 方法学讲解；排除行业动态、广告营销、最新研究资讯 |
+| 去重规则 | 首发优先 + 多平台互注（识别全平台同步矩阵创作者，避免重复收录） |
+| 产出 | 对话内分组清单（默认）或 HTML 干货周报（`synbio_digest_weekly_*.html`，页内含"纯干货·非资讯"徽章） |
+
+高价值来源清单见 `references/sources.md`，可直接取来源名做定向检索。
+
+> ⚠️ 与 [molecular-biology-weekly](https://github.com/flyanx)（新闻/资讯周报）严格区分：本技能只收可收藏复用的纯干货与图文卡片，不收最新研究突破/行业技术资讯。
+
+### PART B · 小红书制卡
 
 ### 卡片规格
 
@@ -140,12 +161,22 @@ pip install pycryptodome             # 仅搜狐图片解密用
 
 ### 触发
 
-直接提供文章链接并说明意图：
+**A. 干货检索 / 周报：**
+
+```
+搜一下最近有什么分子克隆干货
+做一期合成生物学干货周报
+B站有没有讲 Golden Gate 的教程视频
+```
+
+**B. 制卡（提供文章链接并说明意图）：**
 
 ```
 把这篇做成小红书卡片
 https://www.sohu.com/a/xxxxxxx_xxxxxxx
 ```
+
+**衔接：** 先跑 A 拿到干货清单 → 点名"把这篇做成卡片"即进入 B。
 
 ### 品牌配置
 
@@ -157,13 +188,18 @@ https://www.sohu.com/a/xxxxxxx_xxxxxxx
 
 ```
 xiaohongshu-card/
-├── SKILL.md                          # 主流程 + 标准 + 触发词
+├── SKILL.md                          # 主流程（PART A 检索 + PART B 制卡）+ 标准 + 触发词
 ├── README.md                         # 本说明
 ├── LICENSE                           # MIT 许可证
+├── references/
+│   └── sources.md                    # 多平台高价值来源清单（PART A 搜索用）
 ├── assets/
-│   ├── card-template.html            # 10 页卡片模板（数据驱动，单文件）
-│   └── brand-config.example.json     # 品牌配置示例（LOGO / 封底文案）
+│   ├── card-template.html            # 小红书卡片模板（数据驱动，单文件，含 20 风格）
+│   ├── report_template.html          # 干货周报 HTML 模板（PART A，含"纯干货·非资讯"徽章）
+│   ├── brand-config.example.json     # 品牌配置示例（LOGO / 封底文案）
+│   └── logo-ige.png                  # 默认品牌 LOGO（艾基生物）
 ├── scripts/
+│   ├── generate_report.py            # 干货周报 HTML 生成脚本（PART A）
 │   ├── decrypt-sohu.py               # 搜狐图片 AES 解密脚本
 │   ├── verify.js                     # Playwright 质量校验脚本
 │   └── export-jpg.js                 # JPG 导出脚本
@@ -176,6 +212,7 @@ xiaohongshu-card/
 
 | 版本 | 说明 |
 |------|------|
+| v2.0.0 | 制卡版与搜索版（wechat-synbio-digest）合并：新增跨平台干货检索 + HTML 干货周报能力 |
 | v1.0.0 | 首次发布：沉淀自艾基生物质粒构建系列实战，通用工作流 + 品牌配置 |
 
 ---
@@ -192,4 +229,4 @@ Copyright (c) 2026 flyanx
 
 ## 关键词 / Keywords
 
-小红书卡片 · 小红书图文 · 科普卡片 · 公众号转小红书 · 搜狐文章转卡片 · 知识卡片 · 卡片设计 · 小红书运营 · 分子生物学科普 · Xiaohongshu card · RED note cards · WeChat to Xiaohongshu · social media card generator · Playwright card export · agent skill
+小红书卡片 · 小红书图文 · 科普卡片 · 公众号转小红书 · 搜狐文章转卡片 · 知识卡片 · 卡片设计 · 小红书运营 · 分子生物学科普 · 干货检索 · 干货周报 · 合成生物学干货 · 公众号干货 · 跨平台干货搜集 · synbio digest · Xiaohongshu card · RED note cards · WeChat to Xiaohongshu · social media card generator · Playwright card export · agent skill · science content digest
